@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crédit Agricole - Project Jouxter Tracker</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <!-- Font Awesome pour les icônes -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- Chart.js (Version Stable et Optimisée) -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js"></script>
+    <!-- Chart.js Annotation Plugin -->
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-annotation@1.1.0/dist/chartjs-plugin-annotation.min.js"></script>
+</head>
+<body>
+
+    <header class="main-header">
+        <div class="header-content">
+            <img src="assets/img/logo-ca.png" alt="Crédit Agricole Logo" class="header-logo">
+            <h1>Project Jouxter Tracker</h1>
+        </div>
+    </header>
+
+    <div class="container">
+        <!-- Introductory Section -->
+        <section class="introduction">
+            <h2>Welcome to Project Jouxter Tracker</h2>
+            <p>This application provides a comprehensive overview of your project's progress, budget, and ROI across different scenarios. Navigate through the sections to monitor key metrics and make informed decisions.</p>
+        </section>
+
+        <!-- Dashboard Section -->
+        <section class="dashboard">
+            <h2>Project Overview</h2>
+            <div class="kpi-grid">
+                <div class="kpi-card">
+                    <div class="kpi-title"><i class="fas fa-tasks" aria-hidden="true"></i> Overall Progress</div>
+                    <div class="progress-circle">
+                        <canvas id="overallProgressChart" aria-label="Overall Progress Chart" role="img"></canvas>
+                        <div class="progress-label" id="overallProgressLabel">53.06%</div>
+                    </div>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-title"><i class="fas fa-money-bill-wave" aria-hidden="true"></i> Budget</div>
+                    <div class="chart-container">
+                        <canvas id="budgetVariationChart" aria-label="Budget Variation Chart" role="img"></canvas>
+                        <div class="chart-error" id="budgetChartError" style="display: none;">Budget data unavailable.</div>
+                        <!-- Percentage Labels for Budget -->
+                        <div class="budget-percentage">
+                            <span id="budgetConsumedLabel">53% Consumed</span>
+                            <span id="budgetRemainingLabel">47% Remaining</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-title"><i class="fas fa-calendar-alt" aria-hidden="true"></i> Man-Days</div>
+                    <div class="chart-container">
+                        <canvas id="manDaysVariationChart" aria-label="Man-Days Variation Chart" role="img"></canvas>
+                        <div class="chart-error" id="manDaysChartError" style="display: none;">Man-Days data unavailable.</div>
+                        <!-- Percentage Labels for Man-Days -->
+                        <div class="man-days-percentage">
+                            <span id="manDaysConsumedLabel">66% Consumed</span>
+                            <span id="manDaysRemainingLabel">34% Remaining</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="kpi-card">
+                    <div class="kpi-title"><i class="fas fa-chart-pie" aria-hidden="true"></i> ROI Comparison</div>
+                    <div class="chart-container">
+                        <canvas id="roiComparisonChart" aria-label="ROI Comparison Chart" role="img"></canvas>
+                        <div class="chart-error" id="roiChartError" style="display: none;">ROI data unavailable.</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Task Progress Section -->
+        <section class="tasks">
+            <h2>Task Progress</h2>
+            <div id="taskProgressContainer">
+                <!-- Progress Bars Injected Here by main.js -->
+            </div>
+            <!-- Legend for Task Progress Colors -->
+            <div class="task-progress-legend">
+                <span><i class="fas fa-square" style="color: #28a745;"></i> Completed</span>
+                <span><i class="fas fa-square" style="color: #ffc107;"></i> In Progress</span>
+                <span><i class="fas fa-square" style="color: #dc3545;"></i> Delayed</span>
+            </div>
+        </section>
+
+        <!-- Scenarios Section -->
+        <section class="scenarios">
+            <h2>Scenarios</h2>
+            <p class="scenario-intro">Each scenario represents a different projection of the project's duration and costs. Select a scenario to view its details.</p>
+            <div class="tabs">
+                <button class="tab-button active" data-tab="scenario1">Scenario 1</button>
+                <button class="tab-button" data-tab="scenario2">Scenario 2</button>
+                <button class="tab-button" data-tab="scenario3">Scenario 3</button>
+            </div>
+            <div class="tab-content">
+                <div class="tab-panel active" id="scenario1">
+                    <h3>Scenario 1 - Project Finish in 36 Weeks</h3>
+                    <div class="chart-container scenario-chart-container">
+                        <canvas id="scenario1ROI" aria-label="ROI Chart Scenario 1" role="img"></canvas>
+                    </div>
+                    <img src="assets/img/gantt1.png" alt="Gantt Chart Scenario 1" class="gantt-chart">
+                    <div class="scenario-cost">
+                        <p>Total Additional Cost: €21,000.00</p>
+                        <p>Additional Cost for You (20 Days Due to Scope Changes): €8,400.00</p>
+                    </div>
+                    <!-- Description for Scenario 1 -->
+                    <div class="scenario-description">
+                        <h4>Description:</h4>
+                        <p>This scenario outlines the project completion within 36 weeks. The Gantt chart highlights:</p>
+                        <ul>
+                            <li><strong>Key Milestones:</strong> Clear timelines for back-office and front-office tasks.</li>
+                            <li><strong>Critical Path:</strong> Highlighted in red, showing dependencies that could impact the project timeline.</li>
+                            <li><strong>Additional Delays:</strong> Illustrated with striped yellow sections to indicate extra time due to scope changes.</li>
+                            <li><strong>Waiting Times:</strong> Represented by small hourglass icons, pinpointing pauses in progress.</li>
+                        </ul>
+                        <p><strong>Comment:</strong> "Scenario 1 provides a realistic completion timeline but includes delays in the critical path due to scope changes, adding 20 extra days."</p>
+                    </div>
+                </div>
+                <div class="tab-panel" id="scenario2">
+                    <h3>Scenario 2 - Project Finish in 29 Weeks</h3>
+                    <div class="chart-container scenario-chart-container">
+                        <canvas id="scenario2ROI" aria-label="ROI Chart Scenario 2" role="img"></canvas>
+                    </div>
+                    <img src="assets/img/gantt2.png" alt="Gantt Chart Scenario 2" class="gantt-chart">
+                    <div class="scenario-cost">
+                        <p>Total Additional Cost: €35,700.00</p>
+                        <p>Additional Cost for You (+1 Developer for 7 Weeks): €23,100.00</p>
+                    </div>
+                    <!-- Description for Scenario 2 -->
+                    <div class="scenario-description">
+                        <h4>Description:</h4>
+                        <p>This scenario accelerates the project to complete in 29 weeks. Key features include:</p>
+                        <ul>
+                            <li><strong>Increased Resources:</strong> One additional developer is added, reflected in the updated workload for back-office tasks.</li>
+                            <li><strong>Reduced Delays:</strong> The striped sections are minimized compared to Scenario 1, indicating better resource allocation.</li>
+                            <li><strong>Critical Path Stability:</strong> Despite a tighter schedule, the critical path remains well-managed.</li>
+                        </ul>
+                        <p><strong>Comment:</strong> "This scenario optimizes resource allocation to reduce delays, but at an increased cost of €35,700, including €23,100 for additional developer time."</p>
+                    </div>
+                </div>
+                <div class="tab-panel" id="scenario3">
+                    <h3>Scenario 3 - Project Finish in 26 Weeks</h3>
+                    <div class="chart-container scenario-chart-container">
+                        <canvas id="scenario3ROI" aria-label="ROI Chart Scenario 3" role="img"></canvas>
+                    </div>
+                    <img src="assets/img/gantt3.png" alt="Gantt Chart Scenario 3" class="gantt-chart">
+                    <div class="scenario-cost">
+                        <p>Total Additional Cost: €42,000.00</p>
+                        <p>Additional Cost for You (+2 Developers for a Total of 10 Weeks): €29,400.00</p>
+                    </div>
+                    <!-- Description for Scenario 3 -->
+                    <div class="scenario-description">
+                        <h4>Description:</h4>
+                        <p>The most ambitious scenario aims for project completion in just 26 weeks. Highlights include:</p>
+                        <ul>
+                            <li><strong>Aggressive Timeline:</strong> Requires two additional developers, reflected in the workload.</li>
+                            <li><strong>Minimal Delays:</strong> Striped sections are nearly eliminated, showing an intense focus on efficiency.</li>
+                            <li><strong>Risk Management:</strong> Critical paths are carefully monitored to avoid bottlenecks.</li>
+                        </ul>
+                        <p><strong>Comment:</strong> "Scenario 3 achieves the fastest timeline but at the highest cost of €42,000, including €29,400 for two additional developers."</p>
+                    </div>
+                </div>
+            </div>
+            <!-- Legend for Progress Bar Colors -->
+            <div class="progress-legend">
+                <span><i class="fas fa-square" style="color: #28a745;"></i> Completed</span>
+                <span><i class="fas fa-square" style="color: #ffc107;"></i> In Progress</span>
+                <span><i class="fas fa-square" style="color: #dc3545;"></i> Delayed</span>
+            </div>
+            <!-- General Observations for All Gantts -->
+            <div class="general-observations">
+                <h4>General Observations for All Gantts</h4>
+                <ul>
+                    <li><strong>Visual Consistency:</strong> Ensure color coding (green for completed, yellow for in-progress, red for delays) is consistent across all scenarios for clarity.</li>
+                    <li><strong>Interactive Features:</strong> If possible, make the Gantt chart interactive to allow users to click on tasks for detailed descriptions.</li>
+                    <li><strong>Future Integration:</strong> Add tooltips for icons (e.g., hourglasses) to provide explanations of delays or pauses.</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer>
+            <hr class="footer-separator">
+            <p>Last update: 2024-12-09 | 
+                <a href="mailto:contact@ca-projet.fr"><i class="fas fa-envelope" aria-hidden="true"></i> Contact</a> | 
+                <a href="#"><i class="fas fa-file-alt" aria-hidden="true"></i> Legal</a>
+            </p>
+        </footer>
+    </div>
+
+  <!-- Fichiers JavaScript -->
+  <script src="assets/js/data.js"></script>
+  <script src="assets/js/main.js"></script>
+</body>
+</html>
